@@ -8,4 +8,8 @@ os.environ["FASTMCP_HOST"] = "0.0.0.0"
 
 from remarkable_mcp.server import mcp
 
+# Ensure FastMCP binds to Cloud Run's host/port even if env parsing is skipped.
+mcp.settings.host = "0.0.0.0"
+mcp.settings.port = int(os.environ.get("PORT", "8080"))
+
 mcp.run(transport="sse")
